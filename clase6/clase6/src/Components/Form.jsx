@@ -1,93 +1,79 @@
-import React from 'react'
-import Button from './Button';
+import React, {useState} from 'react';
 
 const Form = () => {
-    //   const [name, setName] = useState("");
-    //   const [address, setAddress] = useState("");
-  
-    const [customer, setCustomer] = useState({
-      name: "",
-      address: "",
-    });
 
-    console.log(customer);
-    const [show, setShow] = useState(false);
-    const [error, setError] = useState(false);
+    // Parametros o condiciones cambiar el estado
+    const [nombre, setNombre] = useState("");
+    const [edad, setEdad] = useState("");
+    const [pokemon, setPokemon] = useState("");
 
-    const handleChangeName = (event) => {
-        // setName(event.target.value)
-        setCustomer({ ...customer, name: event.target.value });
-        // console.log(event.target.value);
+    const [show, setShow]= useState(false);
+    const [error, setError]= useState(false);
+
+    const handleChangeName = (e) =>{
+        setNombre(e.target.value); 
+        console.log(e.target.value)  
     };
-    const handleChangeAddress = (event) => {
-        // setAddress(event.target.value)
-        setCustomer({ ...customer, address: event.target.value });
-        // console.log(event.target.value);
+
+    const handleChangeEdad = (e) =>{
+        setEdad(e.target.value);
+        console.log(e.target.value)  
+
     };
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    
+    const handleChangePokemon = (e) =>{
+        setPokemon(e.target.value);
+        console.log(e.target.value)  
+
+    };   
+
+    const handleSubmit =(e)=>{
+        e.preventDefault();
         const numRegex = /[0-9]/;
-        console.log("regex", numRegex.test(customer.address));
-        if (
-            customer.name.trim().length > 3 &&
-            customer.address.includes(" ") &&
-            numRegex.test(customer.address)
-        ) {
+        if(nombre.trim().length > 3 &&
+        pokemon.trim().length > 3 
+        && numRegex.test(edad)){
             setShow(true);
             setError(false);
         } else {
             setError(true);
         }
-    };
+    }
 
-    const reset = () => {
-        setCustomer({
-            name: "",
-            address: "",
-        });
+    const reset = () =>{
+        setNombre("");
+        setEdad("");
+        setPokemon("");
+        
+    }
+
+    return(
+    <>
+        {show ? (
+        <h4 style={{color:"blue"}}>
+        Muchas gracias por registrarse
+        </h4>) : (
+        <>
     
-    return (
-            <>
-                {/* {condicion ? resultado true : resultado false} */}
-                {show ? (
-                    <Message customer={customer} />
-                ) : (
-                    <>
-                        <form onSubmit={handleSubmit}>
-                            <label>Nombre:</label>
-                            <input
-                                type="text"
-                                value={customer.name}
-                                onChange={handleChangeName}
-                            />
-                            <label>Edad: </label>
-                            <input
-                                type="text"
-                                value={customer.address}
-                                onChange={handleChangeAddress}
-                            />
-                            <label>Pokemon Favorito: </label>
-                            <input
-                                type="text"
-                                value={customer.address}
-                                onChange={handleChangeAddress}
-                            />
-                            <button>Enviar</button>
-                        </form>
-                        <button onClick={reset}>Reset form</button>
-                    </>
-                )}
-
-                {error ? (
-                    <h4 style={{ color: "red" }}>
-                        Error: Por favor, coloque la información correctamente
-                    </h4>
-                ) : null}
-            </>
-
+        <form onSubmit={handleSubmit}>
+        <label>Nombre: </label>
+        <input type="text" value={nombre} onChange ={handleChangeName}/>
+        <label>Edad: </label>
+        <input type="text" value={edad} onChange ={handleChangeEdad}/>
+        <label>Pokemon: </label>
+        <input type="text" value={pokemon} onChange ={handleChangePokemon}/>
+        <button>Enviar</button>
+        </form>
+        <button onClick={reset}>Resetea formulario</button>
+        </>
+        )}        
+        {error?(
+        <h4 style={{color:"red"}}>
+        Error, ingresando la informaciÃ³n
+        </h4> 
+        ): null}
+</>
     )
-
-}
 }
 
 export default Form;
