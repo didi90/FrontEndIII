@@ -1,20 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState } from 'react';
+import Card from './Card';
 import Componente from './Componente'
 
-import './App.css'
+const App = () => {
 
-function App() {
+  let nombre = "Diana";
+  return (
+    <div>
+      <Componente nombre={nombre}>hello</Componente>
+      <Card />
+    </div>
+  );
+};
 
-
-let nombre = "Diana";
-
-return (
-<>
-  <Componente nombre={nombre}>hello</Componente>
-</>
-)
-}
-
-export default App
+export default App;
